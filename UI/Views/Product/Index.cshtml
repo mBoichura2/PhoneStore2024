@@ -1,0 +1,21 @@
+﻿@model List<Phone>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var phone in Model)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@phone.Name</h5>
+                    <p class="card-text">Lets buy the phone with price $<strong>@Model[0].Price</strong> becouse it have benefit: <strong>@phone.Description</strong></p>
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>
+
+
+<a asp-action="AddPhone" class="btn btn-primary" role="button">Add phone</a>

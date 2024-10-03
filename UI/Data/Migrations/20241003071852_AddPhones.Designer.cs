@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UI.Data;
 
@@ -11,9 +12,11 @@ using UI.Data;
 namespace UI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241003071852_AddPhones")]
+    partial class AddPhones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,29 +249,6 @@ namespace UI.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Phones");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "poor phone",
-                            Name = "IPhone 7",
-                            Price = 0.0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "norm phone",
-                            Name = "IPhone 8",
-                            Price = 0.0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "cool phone",
-                            Name = "IPhone 9",
-                            Price = 0.0
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
