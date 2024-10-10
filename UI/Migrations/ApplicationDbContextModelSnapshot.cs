@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UI.Data;
 
 #nullable disable
 
-namespace UI.Data.Migrations
+namespace UI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241003072615_SeedPhone")]
-    partial class SeedPhone
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,23 +251,23 @@ namespace UI.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "poor phone",
-                            Name = "IPhone 7",
-                            Price = 0.0
+                            Description = "Poor phone",
+                            Name = "IPhone 9",
+                            Price = 80.0
                         },
                         new
                         {
                             Id = 2,
-                            Description = "norm phone",
-                            Name = "IPhone 8",
-                            Price = 0.0
+                            Description = "Norm phone",
+                            Name = "IPhone 10",
+                            Price = 90.0
                         },
                         new
                         {
                             Id = 3,
-                            Description = "cool phone",
-                            Name = "IPhone 9",
-                            Price = 0.0
+                            Description = "Cool phone",
+                            Name = "IPhone 11",
+                            Price = 100.0
                         });
                 });
 

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace UI.Data.Migrations
+namespace UI.Migrations
 {
     /// <inheritdoc />
     public partial class AddPhones : Migration
