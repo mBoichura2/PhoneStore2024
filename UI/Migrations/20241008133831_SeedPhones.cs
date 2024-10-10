@@ -4,10 +4,10 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace UI.Data.Migrations
+namespace UI.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedPhone : Migration
+    public partial class SeedPhones : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,9 +17,9 @@ namespace UI.Data.Migrations
                 columns: new[] { "Id", "Description", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, "poor phone", "IPhone 7", 0.0 },
-                    { 2, "norm phone", "IPhone 8", 0.0 },
-                    { 3, "cool phone", "IPhone 9", 0.0 }
+                    { 1, "Poor phone", "IPhone 9", 80.0 },
+                    { 2, "Norm phone", "IPhone 10", 90.0 },
+                    { 3, "Cool phone", "IPhone 11", 100.0 }
                 });
         }
 

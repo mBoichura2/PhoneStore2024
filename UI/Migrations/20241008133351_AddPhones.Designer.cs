@@ -9,10 +9,10 @@ using UI.Data;
 
 #nullable disable
 
-namespace UI.Data.Migrations
+namespace UI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241003071852_AddPhones")]
+    [Migration("20241008133351_AddPhones")]
     partial class AddPhones
     {
         /// <inheritdoc />
