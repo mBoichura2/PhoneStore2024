@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using UI.Data;
 using UI.Models;
@@ -13,35 +14,35 @@ namespace UI.Controllers
             _context = context;
         }
 
-        public Phone Get(int id)
+        public async Task<Phone> Get(int id)
         {
-            var phone = _context.Phones.Find(id);//Read
+            var phone = await _context.Phones.FindAsync(id);//Read
             return phone;
         }
 
-        public List<Phone> GetAll()
+        public async Task<List<Phone>> GetAll()
         {
-            var phones = _context.Phones.ToList();//Read
+            var phones = await _context.Phones.ToListAsync();//Read
             return phones;
         }
 
-        public void DeleteProduct(int id)
+        public async Task DeleteProduct(int id)
         {
-            var phone = Get(id);
+            var phone = await Get(id);
             _context.Phones.Remove(phone);//Delete
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void AddProduct(Phone productFromForm)
+        public async Task AddProduct(Phone productFromForm)
         {
-            _context.Phones.Add(productFromForm);//Create
-            _context.SaveChanges();
+            await _context.Phones.AddAsync(productFromForm);//Create
+            await _context.SaveChangesAsync();
         }
 
-        public void EditProduct(Phone productFromForm)
+        public async Task EditProduct(Phone productFromForm)
         {
             _context.Phones.Update(productFromForm);//Update
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
     }

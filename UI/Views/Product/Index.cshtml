@@ -13,10 +13,16 @@
                     <h5 class="card-title">@phone.Name</h5>
                     <p class="card-text">$@phone.Price - choose this becouse @phone.Description</p>
                 </div>
-                <a asp-route-id="@phone.Id" class="btn btn-primary" asp-action="EditProduct" role="button">Edit</a>
-                <a asp-route-id="@phone.Id" class="btn btn-danger" asp-action="DeleteProduct" role="button">Delete</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-route-id="@phone.Id" class="btn btn-primary" asp-action="EditProduct" role="button">Edit</a>
+                    <a asp-route-id="@phone.Id" class="btn btn-danger" asp-action="DeleteProduct" role="button">Delete</a>
+                }
             </div>
         </div>
     }
 </div>
-<a class="btn btn-success" asp-action="AddProduct" role="button">Add product</a>
+@if (User.IsInRole("Admin"))
+{
+    <a class="btn btn-success" asp-action="AddProduct" role="button">Add product</a>
+}
