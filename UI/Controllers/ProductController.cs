@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using UI.Data;
@@ -7,48 +8,65 @@ namespace UI.Controllers
 {
     public class ProductController : Controller
     {
-        ProductService _productService;
-        public ProductController(ProductService productService)
+        PhoneService _productService;
+        ColorService _colorService;
+        public ProductController(
+            PhoneService productService, 
+            ColorService colorService)
         {
             _productService = productService;
+            _colorService = colorService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var phones = _productService.GetAll();//Read
+            var phones = await _productService.GetAll();//Read
             return View(phones);
         }
 
-        public IActionResult DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            _productService.DeleteProduct(id);
+            await _productService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult AddProduct()
+        public async Task<IActionResult> AddProduct()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult AddProduct(Phone productFromForm)
+        public async Task<IActionResult> AddProduct(Phone productFromForm)
         {
-            _productService.AddProduct(productFromForm);
+            await _productService.AddProduct(productFromForm);
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpGet]
-        public IActionResult EditProduct(int id)
+        public async Task<IActionResult> EditProduct(int id)
         {
-            var phone = _productService.Get(id);//Read
+            var phone = await _productService.Get(id);//Read
             return View(phone);
         }
         [HttpPost]
-        public IActionResult EditProduct(Phone productFromForm)
+        public async Task<IActionResult> EditProduct(Phone productFromForm)
         {
-            _productService.EditProduct(productFromForm);//Update
+            await _productService.EditProduct(productFromForm);//Update
             return RedirectToAction("Index");
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> AddColor()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddColor(Color colorFromForm)
+        {
+            await _colorService.AddColor(colorFromForm);
+            return RedirectToAction("Index");
+        }
     }
 }

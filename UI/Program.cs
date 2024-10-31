@@ -1,3 +1,4 @@
+using DataAccess;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UI.Controllers;
@@ -12,12 +13,31 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<PhoneService>();
+builder.Services.AddScoped<ColorService>();
+builder.Services.AddScoped(typeof(Repository<>));
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var provider = scope.ServiceProvider;
+    var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var role1 = new IdentityRole("Admin");
+    await roleManager.CreateAsync(role1);
+    var role2 = new IdentityRole("User");
+    await roleManager.CreateAsync(role2);
+
+    var userManager = provider.GetService<UserManager<IdentityUser>>();
+
+    var user = await userManager.FindByNameAsync("a@b.c");
+    await userManager.AddToRoleAsync(user, role1.Name);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

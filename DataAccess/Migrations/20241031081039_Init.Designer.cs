@@ -9,11 +9,11 @@ using UI.Data;
 
 #nullable disable
 
-namespace UI.Migrations
+namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241008133351_AddPhones")]
-    partial class AddPhones
+    [Migration("20241031081039_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,6 +227,35 @@ namespace UI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("UI.Models.Color", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "IPhone"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Samsung"
+                        });
+                });
+
             modelBuilder.Entity("UI.Models.Phone", b =>
                 {
                     b.Property<int>("Id")
@@ -234,6 +263,9 @@ namespace UI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ColorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -248,7 +280,35 @@ namespace UI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ColorId");
+
                     b.ToTable("Phones");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ColorId = 1,
+                            Description = "Poor phone",
+                            Name = "IPhone 9",
+                            Price = 80.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ColorId = 1,
+                            Description = "Norm phone",
+                            Name = "IPhone 10",
+                            Price = 90.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ColorId = 1,
+                            Description = "Cool phone",
+                            Name = "IPhone 11",
+                            Price = 100.0
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -300,6 +360,22 @@ namespace UI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("UI.Models.Phone", b =>
+                {
+                    b.HasOne("UI.Models.Color", "Color")
+                        .WithMany("Colors")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+                });
+
+            modelBuilder.Entity("UI.Models.Color", b =>
+                {
+                    b.Navigation("Colors");
                 });
 #pragma warning restore 612, 618
         }
