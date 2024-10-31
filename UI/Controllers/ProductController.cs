@@ -8,10 +8,14 @@ namespace UI.Controllers
 {
     public class ProductController : Controller
     {
-        ProductService _productService;
-        public ProductController(ProductService productService)
+        PhoneService _productService;
+        ColorService _colorService;
+        public ProductController(
+            PhoneService productService, 
+            ColorService colorService)
         {
             _productService = productService;
+            _colorService = colorService;
         }
 
         public async Task<IActionResult> Index()
@@ -52,5 +56,17 @@ namespace UI.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> AddColor()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddColor(Color colorFromForm)
+        {
+            await _colorService.AddColor(colorFromForm);
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -10,8 +10,8 @@
             <div class="card h-100">
                 <img src="https://content1.rozetka.com.ua/goods/images/big/364827150.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">@phone.Name</h5>
-                    <p class="card-text">$@phone.Price - choose this becouse @phone.Description</p>
+                    <h5 class="card-title">@phone.Model</h5>
+                    <p class="card-text">$@phone.Price - choose this becouse @phone.Description with color @phone.Color.Name</p>
                 </div>
                 @if (User.IsInRole("Admin"))
                 {
@@ -25,4 +25,5 @@
 @if (User.IsInRole("Admin"))
 {
     <a class="btn btn-success" asp-action="AddProduct" role="button">Add product</a>
+    <a class="btn btn-success" asp-action="AddColor" role="button">Add color</a>
 }

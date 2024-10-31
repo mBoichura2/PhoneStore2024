@@ -1,3 +1,4 @@
+using DataAccess;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UI.Controllers;
@@ -16,7 +17,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<PhoneService>();
+builder.Services.AddScoped<ColorService>();
+builder.Services.AddScoped(typeof(Repository<>));
 
 var app = builder.Build();
 
